@@ -10,6 +10,12 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      body: Container(
+        child: Center(
+          child: Text("Work Under Progress"),
+        ),
+      ),
+    );
   }
 }
