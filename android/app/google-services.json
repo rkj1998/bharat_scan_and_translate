@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "973795546825",
+    "firebase_url": "https://bharat-scan-and-translate.firebaseio.com",
+    "project_id": "bharat-scan-and-translate",
+    "storage_bucket": "bharat-scan-and-translate.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:973795546825:android:ee0e362bd1fce34d671f18",
+        "android_client_info": {
+          "package_name": "com.app.bharat_scan_and_translate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "973795546825-2spg5inkh604d682t2ekqpgko3miughr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUcOYZ5wCNodfaZMiLDx_cubqkwajXLco"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "973795546825-2spg5inkh604d682t2ekqpgko3miughr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
