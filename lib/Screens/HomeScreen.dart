@@ -1,6 +1,8 @@
 import 'package:bharat_scan_and_translate/Screens/OCR.dart';
 import 'package:bharat_scan_and_translate/Screens/Translate.dart';
 import 'package:flutter/material.dart';
+import 'package:gradient_app_bar/gradient_app_bar.dart';
+
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -14,10 +16,15 @@ class _HomeScreenState extends State<HomeScreen> {
         theme: ThemeData.light(),
         home: Scaffold(
             backgroundColor: Colors.white,
-            appBar: AppBar(
-              backgroundColor: Color(0xFF11249F),
-              title: new Text("Bharat Scan And Translate",
-                style: new TextStyle(color: Colors.white),),
+            appBar:PreferredSize(
+              preferredSize: Size.fromHeight(30.0),
+              child: GradientAppBar(
+                title: Align(alignment:Alignment.topCenter,child: Text("Bharat Scan And Translate",style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF11249F),
+                ),)),
+                gradient: LinearGradient(colors: [Color(0xFFFF9933),Colors.white, Colors.green]),
+              ),
             ),
             body:SingleChildScrollView(
               child:
@@ -39,29 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class Style {
-  static final baseTextStyle = const TextStyle(
-      fontFamily: 'Poppins'
-  );
-  static final smallTextStyle = commonTextStyle.copyWith(
-    fontSize: 9.0,
-  );
-  static final commonTextStyle = baseTextStyle.copyWith(
-      color: const Color(0xffb6b2df),
-      fontSize: 10.0,
-      fontWeight: FontWeight.w400
-  );
-  static final titleTextStyle = baseTextStyle.copyWith(
-      color: Colors.white,
-      fontSize: 18.0,
-      fontWeight: FontWeight.w600
-  );
-  static final headerTextStyle = baseTextStyle.copyWith(
-      color: Colors.white,
-      fontSize: 20.0,
-      fontWeight: FontWeight.w400
-  );
-}
+
 
 final planetCardContent1 = new Container(
   margin: new EdgeInsets.fromLTRB(76.0, 16.0, 16.0, 16.0),
@@ -71,7 +56,11 @@ final planetCardContent1 = new Container(
     children: <Widget>[
       new Container(height: 4.0),
       new Text('Optical Character Recogniser',
-        style: Style.titleTextStyle,
+        style: TextStyle(
+            color:Color(0xFF333366),
+            fontSize: 18.0,
+            fontWeight: FontWeight.w600
+        )
       ),
       new Container(height: 10.0),
       new Container(
@@ -91,7 +80,11 @@ final planetCardContent2 = new Container(
     children: <Widget>[
       new Container(height: 4.0),
       new Text('Translate From Image',
-        style: Style.titleTextStyle,
+        style: TextStyle(
+            color:Color(0xFF333366),
+            fontSize: 18.0,
+            fontWeight: FontWeight.w600
+        )
       ),
       new Container(height: 10.0),
       new Container(
@@ -112,7 +105,12 @@ class PlanetRow extends StatelessWidget {
     height: 160.0,
     margin: new EdgeInsets.only(left: 46.0),
     decoration: new BoxDecoration(
-      color: new Color(0xFF333366),
+      gradient: LinearGradient(
+        begin: Alignment.bottomLeft,
+        end: Alignment.topRight,
+        stops: [0.1, 0.5, 0.9,],
+        colors: [Color(0xFFFF9933),Colors.white, Colors.green]
+      ),
       shape: BoxShape.rectangle,
       borderRadius: new BorderRadius.circular(8.0),
       boxShadow: <BoxShadow>[
@@ -166,7 +164,12 @@ class PlanetRow2 extends StatelessWidget {
     height: 160.0,
     margin: new EdgeInsets.only(left: 46.0),
     decoration: new BoxDecoration(
-      color: new Color(0xFF333366),
+      gradient: LinearGradient(
+          begin: Alignment.bottomLeft,
+          end: Alignment.topRight,
+          stops: [0.1, 0.5, 0.9,],
+          colors: [Color(0xFFFF9933),Colors.white, Colors.green]
+      ),
       shape: BoxShape.rectangle,
       borderRadius: new BorderRadius.circular(8.0),
       boxShadow: <BoxShadow>[
