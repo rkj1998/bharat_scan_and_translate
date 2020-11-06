@@ -19,7 +19,6 @@ class _OCRState extends State<OCR> {
     _c = new TextEditingController();
     super.initState();
     initializeTts();
-
   }
 
   @override
@@ -152,6 +151,117 @@ class _OCRState extends State<OCR> {
     textRecognizer.close();
   }
 
+  createAlertDialog(BuildContext context) {
+    // Alert Box when no radio button is selected while answering.
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            shape:  RoundedRectangleBorder(borderRadius: new BorderRadius.circular(15)),
+            title:
+            Text("Select An Option"),
+            actions: <Widget>[
+
+              Align(
+                alignment: Alignment.center,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          gradient: LinearGradient(
+                              begin: Alignment.bottomLeft,
+                              end: Alignment.topRight,
+                              stops: [0.1, 0.5, 0.9,],
+                              colors: [Color(0xFFFF9933),Colors.white, Colors.green]
+                          ),
+                        ),
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width * 0.7,
+                        child: FlatButton(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 40, vertical: 5),
+                          onPressed: () {
+                            text="";
+                            Navigator.of(context).pop();
+                            getImageFromCamera();
+
+                          },
+                          child: Text(
+                            "Click Here To Select Image From Camera",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Color(0xFF333366),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          gradient: LinearGradient(
+                              begin: Alignment.bottomLeft,
+                              end: Alignment.topRight,
+                              stops: [0.1, 0.5, 0.9,],
+                              colors: [Color(0xFFFF9933),Colors.white, Colors.green]
+                          ),
+                        ),
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width * 0.7,
+                        child: FlatButton(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 40, vertical: 5),
+                          onPressed: () {
+                            text="";
+                            Navigator.of(context).pop();
+                            getImageFromGallery();
+
+                          },
+                          child: Text(
+                            "Click Here To Select Image From Gallery",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Color(0xFF333366),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              FlatButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text(
+                  'Cancel',
+                  style: TextStyle(
+                    color: Color(0xFF333366),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+            ],
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -183,42 +293,6 @@ class _OCRState extends State<OCR> {
                       ),)
                           : Image.file(imageURI, width:300, height: 300, fit: BoxFit.contain),
                       SizedBox(height: 20,),
-
-                      Padding(
-                        padding: const EdgeInsets.only(top: 20),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(20)),
-                            gradient: LinearGradient(
-                                begin: Alignment.bottomLeft,
-                                end: Alignment.topRight,
-                                stops: [0.1, 0.5, 0.9,],
-                                colors: [Color(0xFFFF9933),Colors.white, Colors.green]
-                            ),
-                        ),
-                          width: MediaQuery
-                              .of(context)
-                              .size
-                              .width * 0.7,
-                          child: FlatButton(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 40, vertical: 5),
-                            onPressed: () {
-                              text="";
-                              getImageFromCamera();
-                            },
-                            child: Text(
-                              "Click Here To Select Image From Camera",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Color(0xFF333366),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
                       Padding(
                         padding: const EdgeInsets.only(top: 20),
                         child: Container(
@@ -239,11 +313,10 @@ class _OCRState extends State<OCR> {
                             padding: EdgeInsets.symmetric(
                                 horizontal: 40, vertical: 5),
                             onPressed: () {
-                              text="";
-                              getImageFromGallery();
+                              createAlertDialog(context);
                             },
                             child: Text(
-                              "Click Here To Select Image From Gallery",
+                              "Click Here To Select Image",
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: Color(0xFF333366),
@@ -254,13 +327,30 @@ class _OCRState extends State<OCR> {
                           ),
                         ),
                       ),
-                      playButton(context,_c.text),
                       Container(
                         padding: EdgeInsets.all(20),
                         child: TextFormField(
                          maxLines: null,
                           keyboardType: TextInputType.multiline,
                           controller: _c,
+                          decoration:InputDecoration(
+                              suffixIcon: IconButton(
+                                icon: isPlaying
+                                    ?Icon(
+                                  Icons.stop,
+                                  color: Colors.red,
+                                ):Icon(
+                                  Icons.play_arrow,
+                                  color: Colors.green,
+                                ),
+                                onPressed: (){
+                                  setState(() {
+                                    //speechSettings1();
+                                    isPlaying ? _stop() : _speak(_c.text);
+                                  });
+                                },
+                              )
+                          ),
                         ),
                       )
                     ]),
@@ -268,40 +358,6 @@ class _OCRState extends State<OCR> {
             ),
           ),
         )
-    );
-  }
-  Widget playButton(BuildContext context,String val) {
-    return Container(
-      child: Stack(
-        children: <Widget>[
-          Container(
-            padding:
-            const EdgeInsets.symmetric(vertical: 5.0, horizontal: 16.0),
-            margin: const EdgeInsets.only(
-                top: 30, left: 30.0, right: 30.0, bottom: 20.0),
-            child: FlatButton(
-              onPressed: () {
-                //fetch another image
-                setState(() {
-                  //speechSettings1();
-                  isPlaying ? _stop() : _speak(val);
-                });
-              },
-              child: isPlaying
-                  ? Icon(
-                Icons.stop,
-                size: 60,
-                color: Colors.red,
-              )
-                  : Icon(
-                Icons.play_arrow,
-                size: 60,
-                color: Colors.green,
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 }
